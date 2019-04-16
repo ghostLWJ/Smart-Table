@@ -485,6 +485,7 @@ ng.module('smart-table')
           var prevPage = scope.currentPage;
           scope.totalItemCount = paginationState.totalItemCount;
           scope.currentPage = Math.floor(paginationState.start / paginationState.number) + 1;
+          scope.stItemsByPage = paginationState.number;
 
           start = Math.max(start, scope.currentPage - Math.abs(Math.floor(scope.stDisplayedPages / 2)));
           end = start + scope.stDisplayedPages;
@@ -512,11 +513,10 @@ ng.module('smart-table')
         }, redraw, true);
 
         //scope --> table state  (--> view)
-        scope.$watch('stItemsByPage', function (newValue, oldValue) {
-          if (newValue !== oldValue) {
-            scope.selectPage(1);
-          }
-        });
+        scope.setItemsByPage = function (val) {
+          scope.stItemsByPage = val;
+          scope.selectPage(1);
+        }
 
         scope.$watch('stDisplayedPages', redraw);
 
