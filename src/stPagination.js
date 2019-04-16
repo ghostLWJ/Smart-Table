@@ -58,11 +58,10 @@ ng.module('smart-table')
         }, redraw, true);
 
         //scope --> table state  (--> view)
-        scope.$watch('stItemsByPage', function (newValue, oldValue) {
-          if (newValue !== oldValue) {
-            scope.selectPage(1);
-          }
-        });
+        scope.setItemsByPage = function (val) {
+          scope.stItemsByPage = val;
+          scope.selectPage(1);
+        }
 
         scope.$watch('stDisplayedPages', redraw);
 
