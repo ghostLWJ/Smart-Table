@@ -21,6 +21,7 @@ ng.module('smart-table')
 
               pipePromise = $timeout(function () {
                 scope.stPipe(ctrl.tableState(), ctrl);
+                if(element.context) ctrl.$window.scrollTo(0, element.context.offsetTop);
               }, config.pipe.delay);
 
               return pipePromise;

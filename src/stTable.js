@@ -3,7 +3,8 @@ ng.module('smart-table').controller('stTableController', [
   '$parse',
   '$filter',
   '$attrs',
-  function StTableController($scope, $parse, $filter, $attrs) {
+  '$window',
+  function StTableController($scope, $parse, $filter, $attrs, $window) {
     var propertyName = $attrs.stTable;
     var displayGetter = $parse(propertyName);
     var displaySetter = displayGetter.assign;
@@ -83,6 +84,8 @@ ng.module('smart-table').controller('stTableController', [
         }
       );
     }
+
+    this.$window = $window;
 
     /**
      * sort the rows

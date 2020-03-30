@@ -1,5 +1,5 @@
 /** 
-* @version 2.1.11
+* @version 2.1.13
 * @license MIT
 */
 (function (ng, undefined){
@@ -45,7 +45,8 @@ ng.module('smart-table').controller('stTableController', [
   '$parse',
   '$filter',
   '$attrs',
-  function StTableController($scope, $parse, $filter, $attrs) {
+  '$window',
+  function StTableController($scope, $parse, $filter, $attrs, $window) {
     var propertyName = $attrs.stTable;
     var displayGetter = $parse(propertyName);
     var displaySetter = displayGetter.assign;
@@ -125,6 +126,8 @@ ng.module('smart-table').controller('stTableController', [
         }
       );
     }
+
+    this.$window = $window;
 
     /**
      * sort the rows
@@ -557,6 +560,7 @@ ng.module('smart-table')
 
               pipePromise = $timeout(function () {
                 scope.stPipe(ctrl.tableState(), ctrl);
+                if(element.context) ctrl.$window.scrollTo(0, element.context.offsetTop);
               }, config.pipe.delay);
 
               return pipePromise;
